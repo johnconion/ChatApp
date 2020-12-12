@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChatApp</string>
+    <string name="splash_view_text">起動画面</string>
 </resources>
