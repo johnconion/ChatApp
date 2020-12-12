@@ -54,4 +54,5 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:2.14.1"
 
     implementation project(":base")
+    implementation project(":domain")
 }
