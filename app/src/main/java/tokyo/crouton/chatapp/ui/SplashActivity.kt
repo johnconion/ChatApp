@@ -8,5 +8,8 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // ログインとかメンテナンス中かどうか調べるなど
+        startActivity(ChatActivity.createIntent(applicationContext))
     }
 }
