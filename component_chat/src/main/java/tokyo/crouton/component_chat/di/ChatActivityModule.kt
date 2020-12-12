@@ -7,8 +7,5 @@ import dagger.hilt.android.components.ActivityComponent
 @Module
 @InstallIn(ActivityComponent::class)
 class ChatActivityModule() {
-
-//    @Provides
-//    fun provideContext(@ApplicationContext context: Context): Context = context
-
+    
 }
