@@ -1,3 +1,4 @@
+include ':domain'
 include ':base'
 include ':component_chat'
 include ':app'
