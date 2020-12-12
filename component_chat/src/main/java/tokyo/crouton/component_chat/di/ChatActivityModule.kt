@@ -1,0 +1,14 @@
+package tokyo.crouton.component_chat.di
+
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+
+@Module
+@InstallIn(ActivityComponent::class)
+class ChatActivityModule() {
+
+//    @Provides
+//    fun provideContext(@ApplicationContext context: Context): Context = context
+
+}
