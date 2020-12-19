@@ -6,13 +6,13 @@ import io.realm.annotations.PrimaryKey
 import io.realm.kotlin.where
 import java.util.Date
 
-class RealmChat : RealmObject() {
+open class RealmChat(
     @PrimaryKey
-    var id: Int = createId()
-    var sentAt: Date = Date()
-    var isMe: Boolean = true
+    var id: Int = createId(),
+    var sentAt: Date = Date(),
+    var isMe: Boolean = true,
     var text: String = ""
-
+) : RealmObject() {
     companion object {
         fun createId(): Int {
             val realm = Realm.getDefaultInstance()

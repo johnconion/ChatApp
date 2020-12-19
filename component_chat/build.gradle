@@ -55,4 +55,5 @@ dependencies {
 
     implementation project(":base")
     implementation project(":domain")
+    implementation project(":datasource_realm")
 }
