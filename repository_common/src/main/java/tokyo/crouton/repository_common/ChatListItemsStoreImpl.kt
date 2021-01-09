@@ -22,10 +22,11 @@ class ChatListItemsStoreImpl @Inject constructor() : ChatListItemsStore {
 
     override fun updates(): Observable<Event> =
         RealmManager.createObservable(RealmChat::class.java)
-            .map { values ->
-                values.map { ChatListItem.MyPost(ChatId(it.id), it.text, it.sentAt) }
-            }
+            .map { it.toItems() }
             .onMainThread()
             .doOnNext { items = it }
             .map { Event.DataSetChanged }
+
+    private fun List<RealmChat>.toItems(): List<ChatListItem> =
+        this.map { ChatListItem.MyPost(ChatId(it.id), it.text, it.sentAt) }
 }
