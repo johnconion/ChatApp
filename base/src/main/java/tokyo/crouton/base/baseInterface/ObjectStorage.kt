@@ -1,6 +1,6 @@
 package tokyo.crouton.base.baseInterface
 
-import com.jakewharton.rxrelay3.BehaviorRelay
+import com.jakewharton.rxrelay2.BehaviorRelay
 
 interface ObjectStorage<T> {
     var relay: BehaviorRelay<T>

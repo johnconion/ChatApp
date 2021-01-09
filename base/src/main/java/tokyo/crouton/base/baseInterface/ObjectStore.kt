@@ -1,6 +1,6 @@
 package tokyo.crouton.base.baseInterface
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 
 interface ObjectStore<T> {
     var value: T
