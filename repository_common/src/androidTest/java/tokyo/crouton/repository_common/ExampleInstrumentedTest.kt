@@ -1,4 +1,4 @@
-package tokyo.crouton.repository_chat
+package tokyo.crouton.repository_common
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("tokyo.crouton.repository_chat.test", appContext.packageName)
+        assertEquals("tokyo.crouton.repository_common.test", appContext.packageName)
     }
 }

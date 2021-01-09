@@ -1,4 +1,4 @@
-package tokyo.crouton.repository_chat
+package tokyo.crouton.repository_common
 
 import org.junit.Test
 
