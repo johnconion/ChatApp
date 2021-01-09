@@ -4,7 +4,8 @@ import io.reactivex.Observable
 
 interface ArrayStore<T> {
     val size: Int
-    var values: List<T>
+    val values: List<T>
+    fun get(index: Int): T
     fun updates(): Observable<Event>
 
     sealed class Event {
@@ -29,5 +30,3 @@ interface ArrayStore<T> {
         }
     }
 }
-
-fun <T> ArrayStore<T>.get(index: Int): T = values[index]

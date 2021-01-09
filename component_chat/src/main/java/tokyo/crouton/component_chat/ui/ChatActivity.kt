@@ -3,12 +3,11 @@ package tokyo.crouton.component_chat.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.Realm
-import io.realm.kotlin.where
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.datasource_realm.RealmChat
 import tokyo.crouton.domain.store.ChatListItemsStore
@@ -30,24 +29,16 @@ class ChatActivity : AppCompatActivity() {
 
         val realm = Realm.getDefaultInstance()
 
-        realm.where<RealmChat>()
-            .findAllAsync()
-            .addChangeListener { chats ->
-                Log.d("WASSA", "AA!! : " + chats.toString())
+        val button = findViewById<TextView>(R.id.button)
+        button.setOnClickListener {
+            val chat = RealmChat().apply {
+                text = "aaaa"
             }
 
-//        val button = findViewById<TextView>(R.id.button)
-//        button.setOnClickListener {
-//            val chat = RealmChat().apply {
-//                text = "aaaaa"
-//            }
-//
-//            realm.executeTransaction {
-//                it.insert(chat)
-//            }
-//
-//            Log.d("WASSA", realm.where<RealmChat>().findAll().toString())
-//        }
+            realm.executeTransaction {
+                it.insert(chat)
+            }
+        }
     }
 
     companion object {

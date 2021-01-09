@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import tokyo.crouton.base.baseInterface.ArrayStore.Event
 import tokyo.crouton.base.baseInterface.ArrayStore.Event.DataSetChanged
@@ -19,6 +21,8 @@ fun ViewGroup.inflate(resource: Int, attachToRoot: Boolean): View =
     LayoutInflater.from(context).inflate(resource, this, attachToRoot)
 
 val <T> T.checkAllMatched: T get() = this
+
+fun <T> Observable<T>.onMainThread(): Observable<T> = observeOn(AndroidSchedulers.mainThread())
 
 fun <VH : RecyclerView.ViewHolder> RecyclerView.Adapter<VH>.notify(): Consumer<Event> =
     Consumer {

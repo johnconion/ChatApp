@@ -3,7 +3,7 @@ package tokyo.crouton.component_chat.ui
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
-import tokyo.crouton.base.baseInterface.get
+import tokyo.crouton.base.notify
 import tokyo.crouton.domain.chat.ChatListItem.MyPost
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
@@ -13,9 +13,9 @@ class ChatListAdapter @Inject constructor(
     private val chatListMyPostItemBinder: Lazy<ChatListMyPostItemBinder>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-//    init {
-//        chatListItemsStore.updates().subscribe(notify()).dispose()
-//    }
+    init {
+        chatListItemsStore.updates().subscribe(notify())
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         ChatListMyPostViewHolder(parent)
