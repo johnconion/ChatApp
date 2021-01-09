@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.Realm
+import tokyo.crouton.base.AutoDisposable
+import tokyo.crouton.base.AutoDisposableDelegation
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.datasource_realm.RealmChat
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelegation() {
 
     @Inject
     lateinit var chatListAdapter: ChatListAdapter
@@ -25,6 +27,7 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        addChild(chatListAdapter)
         findViewById<RecyclerView>(R.id.chat_list).adapter = chatListAdapter
 
         val realm = Realm.getDefaultInstance()
