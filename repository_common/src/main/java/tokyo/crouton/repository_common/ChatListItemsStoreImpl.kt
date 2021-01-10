@@ -28,5 +28,5 @@ class ChatListItemsStoreImpl @Inject constructor() : ChatListItemsStore {
             .map { Event.DataSetChanged }
 
     private fun List<RealmChat>.toItems(): List<ChatListItem> =
-        this.map { ChatListItem.MyPost(ChatId(it.id), it.text, it.sentAt) }
+        this.sortedBy { it.id }.map { ChatListItem.MyPost(ChatId(it.id), it.text, it.sentAt) }
 }

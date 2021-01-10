@@ -3,15 +3,20 @@ package tokyo.crouton.component_chat.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import io.realm.Realm
 import tokyo.crouton.base.AutoDisposable
 import tokyo.crouton.base.AutoDisposableDelegation
+import tokyo.crouton.base.UseCaseDispatcher
+import tokyo.crouton.base.execute
+import tokyo.crouton.base.usecase.UseCaseEvent.Failure
+import tokyo.crouton.base.usecase.UseCaseEvent.Success
 import tokyo.crouton.component_chat.R
-import tokyo.crouton.datasource_realm.RealmChat
+import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
 
@@ -24,24 +29,53 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
     @Inject
     lateinit var chatListItemsStore: ChatListItemsStore
 
+    @Inject
+    lateinit var postMyTextUseCase: PostMyTextUseCase
+
+    @Inject
+    lateinit var useCaseDispatcher: UseCaseDispatcher
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         addChild(chatListAdapter)
-        findViewById<RecyclerView>(R.id.chat_list).adapter = chatListAdapter
+        val chatList = findViewById<RecyclerView>(R.id.chat_list)
+        chatList.adapter = chatListAdapter
 
-        val realm = Realm.getDefaultInstance()
-
-        val button = findViewById<TextView>(R.id.button)
-        button.setOnClickListener {
-            val chat = RealmChat().apply {
-                text = "aaaa"
-            }
-
-            realm.executeTransaction {
-                it.insert(chat)
-            }
+        val postEditText = findViewById<EditText>(R.id.post_text)
+        val postButton = findViewById<TextView>(R.id.post_button)
+        postButton.setOnClickListener {
+            postMyTextUseCase.execute(postEditText.text.toString())
         }
+
+        chatListItemsStore.updates()
+            .subscribe {
+                chatList.scrollToPosition(chatListItemsStore.size - 1)
+            }.autoDispose()
+
+        // これは酷いのでなんとかする
+        useCaseDispatcher.events()
+            .filter {
+                when (it) {
+                    is Success<*> -> it.type == PostMyTextUseCase::class.java
+                    is Failure<*> -> it.type == PostMyTextUseCase::class.java
+                }
+            }.subscribe {
+                when (it) {
+                    is Success<*> -> {
+                        Log.d("WASSA", "Success")
+                        postEditText.setText("")
+                    }
+                    is Failure<*> -> {
+                        Log.d("WASSA", "Failure")
+                    }
+                }
+            }.autoDispose()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dispose()
     }
 
     companion object {
