@@ -6,30 +6,23 @@ import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
 import tokyo.crouton.base.UseCase1
 import tokyo.crouton.base.UseCaseDispatcher
-import tokyo.crouton.datasource_realm.RealmChat
+import tokyo.crouton.base.toDateFromISOString
+import tokyo.crouton.domain.repository.ChatRepository
 import tokyo.crouton.network.APIClient
 import tokyo.crouton.network.api.ChatApi
-import java.time.Instant
-import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalAccessor
 import java.util.Date
 import javax.inject.Inject
 
 class PostMyTextUseCase @Inject constructor(
     override val useCaseDispatcher: UseCaseDispatcher,
     private val realm: Realm,
-    private val APIClient: APIClient
+    private val APIClient: APIClient,
+    private val chatRepository: ChatRepository
 ) : UseCase1<String> {
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun build(text: String): Single<Unit> =
         Single.fromCallable {
-            val myPost = RealmChat().apply {
-                this.text = text
-                isMe = true
-            }
-            realm.executeTransaction {
-                it.insert(myPost)
-            }
+            chatRepository.addPost(text, Date(), true)
         }
             .observeOn(Schedulers.io())
             .flatMap {
@@ -37,15 +30,6 @@ class PostMyTextUseCase @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess {
-                val botResponse = RealmChat().apply {
-                    this.text = it.message
-                    isMe = false
-                    val timeFormatter: DateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME
-                    val accessor: TemporalAccessor = timeFormatter.parse(it.date)
-                    sentAt = Date.from(Instant.from(accessor))
-                }
-                realm.executeTransaction {
-                    it.insert(botResponse)
-                }
+                chatRepository.addPost(it.message, it.date.toDateFromISOString(), false)
             }.map { Unit }
 }

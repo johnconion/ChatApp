@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import tokyo.crouton.domain.store.ChatListItemsStore
-import tokyo.crouton.repository_chat.ChatListItemsStoreImpl
+import tokyo.crouton.repository_chat.store.ChatListItemsStoreImpl
 import javax.inject.Singleton
 
 @Module

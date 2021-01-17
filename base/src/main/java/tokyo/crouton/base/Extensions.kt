@@ -16,6 +16,10 @@ import tokyo.crouton.base.baseInterface.ArrayStore.Event.ItemRangeChanged
 import tokyo.crouton.base.baseInterface.ArrayStore.Event.ItemRangeInserted
 import tokyo.crouton.base.baseInterface.ArrayStore.Event.ItemRangeRemoved
 import tokyo.crouton.base.baseInterface.ArrayStore.Event.ItemRemoved
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAccessor
+import java.util.Date
 
 fun <T : Any> T?.requireNotNull(): T = requireNotNull(this)
 
@@ -50,3 +54,9 @@ fun <VH : RecyclerView.ViewHolder> RecyclerView.Adapter<VH>.notify(): Consumer<E
             )
         }.checkAllMatched
     }
+
+fun String.toDateFromISOString(): Date {
+    val timeFormatter: DateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME
+    val accessor: TemporalAccessor = timeFormatter.parse(this)
+    return Date.from(Instant.from(accessor))
+}
