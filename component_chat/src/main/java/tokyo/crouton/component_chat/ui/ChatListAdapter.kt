@@ -7,17 +7,15 @@ import tokyo.crouton.base.AutoDisposable
 import tokyo.crouton.base.AutoDisposableDelegation
 import tokyo.crouton.base.notify
 import tokyo.crouton.base.requireNotNull
-import tokyo.crouton.component_chat.ui.ChatListAdapter.ViewType.MY_POST
-import tokyo.crouton.component_chat.ui.ChatListAdapter.ViewType.OTHERS_POST
-import tokyo.crouton.domain.chat.ChatListItem.MyPost
-import tokyo.crouton.domain.chat.ChatListItem.OthersPost
+import tokyo.crouton.component_chat.ui.ChatListAdapter.ViewType.MY_MESSAGE_POST
+import tokyo.crouton.component_chat.ui.ChatListAdapter.ViewType.OTHERS_MESSAGE_POST
+import tokyo.crouton.domain.chat.ChatListItem.MessagePost
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
 
 class ChatListAdapter @Inject constructor(
     private val chatListItemsStore: ChatListItemsStore,
-    private val chatListMyPostItemBinder: Lazy<ChatListMyPostItemBinder>,
-    private val chatListOthersPostItemBinder: Lazy<ChatListOthersPostItemBinder>
+    private val chatListMessagePostBinder: Lazy<ChatListMessagePostBinder>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), AutoDisposable by AutoDisposableDelegation() {
 
     init {
@@ -25,30 +23,29 @@ class ChatListAdapter @Inject constructor(
     }
 
     override fun getItemViewType(position: Int): Int =
-        when (chatListItemsStore.get(position)) {
-            is MyPost -> MY_POST.value
-            is OthersPost -> OTHERS_POST.value
+        when (val item = chatListItemsStore.get(position)) {
+            is MessagePost -> {
+                if (item.isMe) MY_MESSAGE_POST.value else OTHERS_MESSAGE_POST.value
+            }
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (ViewType.of(viewType)) {
-            MY_POST -> ChatListMyPostViewHolder(parent)
-            OTHERS_POST -> ChatListOthersPostViewHolder(parent)
+            MY_MESSAGE_POST -> ChatListMyPostViewHolder(parent)
+            OTHERS_MESSAGE_POST -> ChatListOthersPostViewHolder(parent)
         }
 
     override fun getItemCount(): Int = chatListItemsStore.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when (val item = chatListItemsStore.get(position)) {
-            is MyPost -> chatListMyPostItemBinder.get()
-                .bind(holder as ChatListMyPostViewHolder, item)
-            is OthersPost -> chatListOthersPostItemBinder.get()
-                .bind(holder as ChatListOthersPostViewHolder, item)
+            is MessagePost -> chatListMessagePostBinder.get()
+                .bind(holder as ChatListMessagePostViewHolder, item)
         }
 
     private enum class ViewType {
-        MY_POST,
-        OTHERS_POST;
+        MY_MESSAGE_POST,
+        OTHERS_MESSAGE_POST;
 
         val value: Int = ordinal
 

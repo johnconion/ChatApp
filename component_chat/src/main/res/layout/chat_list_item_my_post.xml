@@ -10,6 +10,7 @@
     android:paddingBottom="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -22,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/test_text"
+            android:id="@+id/message_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -34,5 +35,14 @@
             tools:text="あああああーーーーいい" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/background_view"
+        app:layout_constraintEnd_toStartOf="@id/background_view"
+        tools:text="19:25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
