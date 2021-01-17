@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="post_button">投稿</string>
     <string name="error_toast">エラーが発生しました</string>

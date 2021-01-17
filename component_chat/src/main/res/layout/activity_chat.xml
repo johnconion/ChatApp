@@ -10,6 +10,7 @@
         android:id="@+id/chat_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/chat_list_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/comment_area"
         app:layout_constraintEnd_toEndOf="parent"

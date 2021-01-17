@@ -17,6 +17,10 @@ import tokyo.crouton.base.baseInterface.ArrayStore.Event.ItemRangeInserted
 import tokyo.crouton.base.baseInterface.ArrayStore.Event.ItemRangeRemoved
 import tokyo.crouton.base.baseInterface.ArrayStore.Event.ItemRemoved
 
+fun <T : Any> T?.requireNotNull(): T = requireNotNull(this)
+
+fun <T : Any> T?.requireNotNull(lazyMessage: () -> Any): T = requireNotNull(this, lazyMessage)
+
 fun ViewGroup.inflate(resource: Int, attachToRoot: Boolean): View =
     LayoutInflater.from(context).inflate(resource, this, attachToRoot)
 
