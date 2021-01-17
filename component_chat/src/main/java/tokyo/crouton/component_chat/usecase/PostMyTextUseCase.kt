@@ -17,12 +17,12 @@ import javax.inject.Inject
 
 class PostMyTextUseCase @Inject constructor(
     override val useCaseDispatcher: UseCaseDispatcher,
+    private val realm: Realm,
     private val APIClient: APIClient
 ) : UseCase1<String> {
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun build(text: String): Single<Unit> =
         Single.fromCallable {
-            val realm = Realm.getDefaultInstance()
             val myPost = RealmChat().apply {
                 this.text = text
                 isMe = true
@@ -37,7 +37,6 @@ class PostMyTextUseCase @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess {
-                val realm = Realm.getDefaultInstance()
                 val botResponse = RealmChat().apply {
                     this.text = it.message
                     isMe = false
