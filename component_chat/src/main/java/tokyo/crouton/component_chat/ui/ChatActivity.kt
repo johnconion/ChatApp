@@ -39,17 +39,20 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
     @Inject
     lateinit var APIClient: APIClient
 
+    private val chatList: RecyclerView by lazy { findViewById<RecyclerView>(R.id.chat_list) }
+    private val postEditText: EditText by lazy { findViewById<EditText>(R.id.post_text) }
+    private val postButton: TextView by lazy { findViewById<TextView>(R.id.post_button) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
         addChild(chatListAdapter)
-        val chatList = findViewById<RecyclerView>(R.id.chat_list)
         chatList.adapter = chatListAdapter
 
-        val postEditText = findViewById<EditText>(R.id.post_text)
-        val postButton = findViewById<TextView>(R.id.post_button)
         postButton.setOnClickListener {
             postMyTextUseCase.execute(postEditText.text.toString())
+            postEditText.text.clear()
         }
 
         chatListItemsStore.updates()
@@ -68,8 +71,6 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
                 when (it) {
                     is Success<*> -> {
                         Log.d("WASSA", "Success")
-                        postEditText.text.clear()
-                        chatListAdapter.notifyDataSetChanged()
                     }
                     is Failure<*> -> {
                         Log.d("WASSA", "Failure")
