@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +18,7 @@ import tokyo.crouton.base.execute
 import tokyo.crouton.base.usecase.UseCaseEvent.Failure
 import tokyo.crouton.base.usecase.UseCaseEvent.Success
 import tokyo.crouton.component_chat.R
+import tokyo.crouton.component_chat.R.string
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
@@ -70,6 +73,7 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
                     }
                     is Failure<*> -> {
                         Log.d("WASSA", "Failure")
+                        makeText(this, string.error_toast, Toast.LENGTH_SHORT).show()
                     }
                 }
             }.autoDispose()
