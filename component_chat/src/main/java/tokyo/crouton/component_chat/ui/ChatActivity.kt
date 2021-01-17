@@ -18,7 +18,6 @@ import tokyo.crouton.base.usecase.UseCaseEvent.Success
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
 import tokyo.crouton.domain.store.ChatListItemsStore
-import tokyo.crouton.network.APIClient
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,9 +34,6 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
 
     @Inject
     lateinit var useCaseDispatcher: UseCaseDispatcher
-
-    @Inject
-    lateinit var APIClient: APIClient
 
     private val chatList: RecyclerView by lazy { findViewById<RecyclerView>(R.id.chat_list) }
     private val postEditText: EditText by lazy { findViewById<EditText>(R.id.post_text) }
