@@ -10,9 +10,7 @@ import tokyo.crouton.chatapp.ActivityIntentResolverImpl
 @Module
 @InstallIn(ActivityComponent::class)
 class SplashActivityModule {
-
     @Provides
     fun provideActivityIntentResolver(impl: ActivityIntentResolverImpl): ActivityIntentResolver =
         impl
-
 }
