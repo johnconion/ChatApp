@@ -1,4 +1,4 @@
-package tokyo.crouton.repository_common
+package tokyo.crouton.repository_chat
 
 import io.reactivex.Observable
 import tokyo.crouton.base.baseInterface.ArrayStore.Event

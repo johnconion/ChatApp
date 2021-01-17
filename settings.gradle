@@ -1,5 +1,5 @@
 include ':network'
-include ':repository_common'
+include ':repository_chat'
 include ':datasource_realm'
 include ':domain'
 include ':base'

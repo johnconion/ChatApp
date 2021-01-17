@@ -8,6 +8,6 @@ dependencies {
     implementation project(":component_chat")
     implementation project(":datasource_realm")
     implementation project(":domain")
-    implementation project(":repository_common")
+    implementation project(':repository_chat')
     implementation project(":network")
 }
