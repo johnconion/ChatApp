@@ -6,7 +6,7 @@ buildscript {
     ext.rxKotlin2Version = '2.3.0'
     ext.rxRelay2Version = '2.0.0'
     ext.junitVersion = '4.13.1'
-    
+
     repositories {
         google()
         jcenter()
@@ -42,7 +42,7 @@ subprojects {
         buildToolsVersion "30.0.3"
 
         defaultConfig {
-            minSdkVersion 24
+            minSdkVersion 26
             targetSdkVersion 30
             versionCode 1
             versionName "1.0"

@@ -18,6 +18,7 @@ import tokyo.crouton.base.usecase.UseCaseEvent.Success
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
 import tokyo.crouton.domain.store.ChatListItemsStore
+import tokyo.crouton.network.APIClient
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,6 +35,9 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
 
     @Inject
     lateinit var useCaseDispatcher: UseCaseDispatcher
+
+    @Inject
+    lateinit var APIClient: APIClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +68,8 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
                 when (it) {
                     is Success<*> -> {
                         Log.d("WASSA", "Success")
-                        postEditText.setText("")
+                        postEditText.text.clear()
+                        chatListAdapter.notifyDataSetChanged()
                     }
                     is Failure<*> -> {
                         Log.d("WASSA", "Failure")
