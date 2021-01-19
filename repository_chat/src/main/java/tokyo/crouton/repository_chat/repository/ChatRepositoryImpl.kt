@@ -30,4 +30,13 @@ class ChatRepositoryImpl @Inject constructor(
             value.deleteFromRealm()
         }
     }
+
+    override fun removeAll() {
+        val values =
+            realm.where(RealmChat::class.java)
+                .findAll()
+        realm.executeTransaction {
+            values.deleteAllFromRealm()
+        }
+    }
 }

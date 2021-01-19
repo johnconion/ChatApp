@@ -20,6 +20,7 @@ import tokyo.crouton.base.usecase.UseCaseEvent.Success
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.component_chat.R.string
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
+import tokyo.crouton.component_chat.usecase.RemoveAllPostsUseCase
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
 
@@ -38,6 +39,9 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
     @Inject
     lateinit var useCaseDispatcher: UseCaseDispatcher
 
+    @Inject
+    lateinit var removeAllPostsUseCase: RemoveAllPostsUseCase
+
     private val chatList: RecyclerView by lazy { findViewById<RecyclerView>(R.id.chat_list) }
     private val postEditText: EditText by lazy { findViewById<EditText>(R.id.post_text) }
     private val postButton: TextView by lazy { findViewById<TextView>(R.id.post_button) }
@@ -52,6 +56,12 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
         postButton.setOnClickListener {
             postMyTextUseCase.execute(postEditText.text.toString())
             postEditText.text.clear()
+        }
+
+        //
+        postButton.setOnLongClickListener {
+            removeAllPostsUseCase.execute()
+            true
         }
 
         chatListItemsStore.updates()

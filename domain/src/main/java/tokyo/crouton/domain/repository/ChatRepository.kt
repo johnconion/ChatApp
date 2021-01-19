@@ -6,4 +6,5 @@ import java.util.Date
 interface ChatRepository {
     fun addPost(message: String, date: Date, isMe: Boolean)
     fun removePost(chatId: ChatId)
+    fun removeAll()
 }
