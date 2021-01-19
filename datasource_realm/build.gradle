@@ -6,6 +6,5 @@ plugins {
 
 dependencies {
     implementation "io.realm:realm-gradle-plugin:6.1.0"
-
     implementation project(":base")
 }

@@ -4,14 +4,6 @@ plugins {
 }
 
 dependencies {
-
-    def retrofit_version = "2.9.0"
-
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-
     implementation project(":base")
     implementation project(":domain")
     implementation project(":network")

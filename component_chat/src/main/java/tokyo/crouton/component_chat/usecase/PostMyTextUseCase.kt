@@ -3,7 +3,6 @@ package tokyo.crouton.component_chat.usecase
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.realm.Realm
 import tokyo.crouton.base.toDateFromISOString
 import tokyo.crouton.base.usecase.UseCase1
 import tokyo.crouton.base.usecase.UseCaseDispatcher
@@ -15,7 +14,6 @@ import javax.inject.Inject
 
 class PostMyTextUseCase @Inject constructor(
     override val useCaseDispatcher: UseCaseDispatcher,
-    private val realm: Realm,
     private val APIClient: APIClient,
     private val chatRepository: ChatRepository
 ) : UseCase1<String> {
@@ -26,7 +24,7 @@ class PostMyTextUseCase @Inject constructor(
         }
             .observeOn(Schedulers.io())
             .flatMap {
-                APIClient.builder.create(ChatApi::class.java).postMessage()
+                APIClient.create(ChatApi::class.java).postMessage()
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess {

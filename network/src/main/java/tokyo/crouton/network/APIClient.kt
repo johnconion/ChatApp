@@ -8,13 +8,13 @@ import javax.inject.Inject
 
 class APIClient @Inject constructor() {
     private val baseUrl = "https://script.google.com/"
-
-    val builder = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(OkHttpClient.Builder().build())
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-
-    fun <T> Retrofit.create(api: Class<T>): T = this.create(api)
+    
+    fun <T> create(api: Class<T>): T =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(OkHttpClient.Builder().build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(api)
 }
