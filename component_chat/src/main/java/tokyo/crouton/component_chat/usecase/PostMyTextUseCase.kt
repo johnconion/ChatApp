@@ -4,9 +4,9 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
-import tokyo.crouton.base.UseCase1
-import tokyo.crouton.base.UseCaseDispatcher
 import tokyo.crouton.base.toDateFromISOString
+import tokyo.crouton.base.usecase.UseCase1
+import tokyo.crouton.base.usecase.UseCaseDispatcher
 import tokyo.crouton.domain.repository.ChatRepository
 import tokyo.crouton.network.APIClient
 import tokyo.crouton.network.api.ChatApi

@@ -1,4 +1,4 @@
-package tokyo.crouton.base
+package tokyo.crouton.base.usecase
 
 import android.annotation.SuppressLint
 import io.reactivex.Single
@@ -17,7 +17,10 @@ fun UseCase0.execute() {
         {
             useCaseDispatcher.flushSuccessEvent((this as UseCase).javaClass)
         }, {
-            useCaseDispatcher.flushFailureEvent((this as UseCase).javaClass, it)
+            useCaseDispatcher.flushFailureEvent(
+                (this as UseCase).javaClass,
+                it
+            )
         }
     )
 }
@@ -32,7 +35,10 @@ fun <T> UseCase1<T>.execute(arg: T) {
         {
             useCaseDispatcher.flushSuccessEvent((this as UseCase).javaClass)
         }, {
-            useCaseDispatcher.flushFailureEvent((this as UseCase).javaClass, it)
+            useCaseDispatcher.flushFailureEvent(
+                (this as UseCase).javaClass,
+                it
+            )
         }
     )
 }

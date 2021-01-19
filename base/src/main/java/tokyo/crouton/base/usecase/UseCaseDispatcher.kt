@@ -1,7 +1,6 @@
-package tokyo.crouton.base
+package tokyo.crouton.base.usecase
 
 import com.jakewharton.rxrelay2.PublishRelay
-import tokyo.crouton.base.usecase.UseCaseEvent
 import tokyo.crouton.base.usecase.UseCaseEvent.Success
 import javax.inject.Inject
 import javax.inject.Singleton

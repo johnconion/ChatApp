@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import tokyo.crouton.base.AutoDisposable
 import tokyo.crouton.base.AutoDisposableDelegation
-import tokyo.crouton.base.UseCaseDispatcher
-import tokyo.crouton.base.execute
+import tokyo.crouton.base.usecase.UseCaseDispatcher
 import tokyo.crouton.base.usecase.UseCaseEvent.Failure
 import tokyo.crouton.base.usecase.UseCaseEvent.Success
+import tokyo.crouton.base.usecase.execute
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.component_chat.R.string
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
