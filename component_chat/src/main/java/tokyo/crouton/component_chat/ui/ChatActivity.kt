@@ -14,7 +14,7 @@ import tokyo.crouton.base.AutoDisposable
 import tokyo.crouton.base.AutoDisposableDelegation
 import tokyo.crouton.base.usecase.events
 import tokyo.crouton.base.usecase.execute
-import tokyo.crouton.base.usecase.filterIsSuccessful
+import tokyo.crouton.base.usecase.filterIsFailure
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.component_chat.R.string
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
@@ -64,7 +64,7 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
             }.autoDispose()
 
         postMyTextUseCase.events()
-            .filterIsSuccessful()
+            .filterIsFailure()
             .subscribe { makeText(this, string.error_toast, Toast.LENGTH_SHORT).show() }
             .autoDispose()
     }
