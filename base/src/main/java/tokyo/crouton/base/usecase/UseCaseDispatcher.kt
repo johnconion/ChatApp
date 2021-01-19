@@ -12,8 +12,9 @@ class UseCaseDispatcher @Inject constructor() {
 
     fun events(): PublishRelay<UseCaseEvent> = relay
 
-    fun <T : Class<UseCase>> flushSuccessEvent(UseCaseType: T) = relay.accept(Success(UseCaseType))
+    fun flushSuccessEvent(useCase: UseCase) =
+        relay.accept(Success(useCase))
 
-    fun <T : Class<UseCase>> flushFailureEvent(UseCaseType: T, error: Throwable) =
-        relay.accept(UseCaseEvent.Failure(UseCaseType, error))
+    fun flushFailureEvent(useCase: UseCase, error: Throwable) =
+        relay.accept(UseCaseEvent.Failure(useCase, error))
 }

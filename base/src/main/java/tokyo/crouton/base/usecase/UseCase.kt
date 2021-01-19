@@ -14,14 +14,8 @@ interface UseCase0 : UseCase {
 @SuppressLint("CheckResult")
 fun UseCase0.execute() {
     build().subscribe(
-        {
-            useCaseDispatcher.flushSuccessEvent((this as UseCase).javaClass)
-        }, {
-            useCaseDispatcher.flushFailureEvent(
-                (this as UseCase).javaClass,
-                it
-            )
-        }
+        { useCaseDispatcher.flushSuccessEvent(this) },
+        { useCaseDispatcher.flushFailureEvent(this, it) }
     )
 }
 
@@ -32,13 +26,7 @@ interface UseCase1<T> : UseCase {
 @SuppressLint("CheckResult")
 fun <T> UseCase1<T>.execute(arg: T) {
     build(arg).subscribe(
-        {
-            useCaseDispatcher.flushSuccessEvent((this as UseCase).javaClass)
-        }, {
-            useCaseDispatcher.flushFailureEvent(
-                (this as UseCase).javaClass,
-                it
-            )
-        }
+        { useCaseDispatcher.flushSuccessEvent(this) },
+        { useCaseDispatcher.flushFailureEvent(this, it) }
     )
 }

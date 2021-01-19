@@ -1,11 +1,11 @@
 package tokyo.crouton.base.usecase
 
-sealed class UseCaseEvent {
-    data class Success<T : Class<UseCase>>(val type: T) :
-        UseCaseEvent()
+sealed class UseCaseEvent(open val useCase: UseCase) {
+    data class Success(override val useCase: UseCase) :
+        UseCaseEvent(useCase)
 
-    data class Failure<T : Class<UseCase>>(
-        val type: T,
+    data class Failure(
+        override val useCase: UseCase,
         val error: Throwable
-    ) : UseCaseEvent()
+    ) : UseCaseEvent(useCase)
 }
