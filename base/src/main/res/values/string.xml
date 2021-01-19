@@ -2,5 +2,5 @@
 <resources>
     <string name="post_button">投稿</string>
     <string name="error_toast">エラーが発生しました</string>
-    <string name="time_string_format">HH:mm</string>
+    <string name="time_string_format">H:mm</string>
 </resources>
