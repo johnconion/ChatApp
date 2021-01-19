@@ -39,17 +39,17 @@ fun <VH : RecyclerView.ViewHolder> RecyclerView.Adapter<VH>.notify(): Consumer<E
             is DataSetChanged -> this.notifyDataSetChanged()
             is ItemChanged -> this.notifyItemChanged(it.position)
             is ItemRangeChanged -> this.notifyItemRangeChanged(
-                it.range.start,
+                it.range.first,
                 it.range.count()
             )
             is ItemRemoved -> this.notifyItemRemoved(it.position)
             is ItemMoved -> this.notifyItemMoved(it.from, it.to)
             is ItemRangeInserted -> this.notifyItemRangeInserted(
-                it.range.start,
+                it.range.first,
                 it.range.count()
             )
             is ItemRangeRemoved -> this.notifyItemRangeRemoved(
-                it.range.start,
+                it.range.first,
                 it.range.count()
             )
         }.checkAllMatched
