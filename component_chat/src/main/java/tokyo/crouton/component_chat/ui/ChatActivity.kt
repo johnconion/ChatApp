@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.makeText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,11 +20,15 @@ import tokyo.crouton.component_chat.R
 import tokyo.crouton.component_chat.R.string
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
 import tokyo.crouton.component_chat.usecase.RemoveAllPostsUseCase
+import tokyo.crouton.component_chat.usecase.RemovePostUseCase
+import tokyo.crouton.domain.chat.ChatId
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
-class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelegation() {
+class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelegation(),
+    ChatListMessagePostBinder.Actions {
 
     @Inject
     lateinit var chatListAdapter: ChatListAdapter
@@ -36,6 +41,9 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
 
     @Inject
     lateinit var removeAllPostsUseCase: RemoveAllPostsUseCase
+
+    @Inject
+    lateinit var removePostUseCase: RemovePostUseCase
 
     private val chatList: RecyclerView by lazy { findViewById<RecyclerView>(R.id.chat_list) }
     private val postEditText: EditText by lazy { findViewById<EditText>(R.id.post_text) }
@@ -76,5 +84,16 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
 
     companion object {
         fun createIntent(context: Context) = Intent(context, ChatActivity::class.java)
+    }
+
+    override fun removePost(chatId: ChatId) {
+        AlertDialog.Builder(this)
+            .setTitle(string.remove_post_dialog_title)
+            .setMessage(string.remove_post_dialog_message)
+            .setPositiveButton(string.dialog_ok_button) { _, _ ->
+                removePostUseCase.execute(chatId)
+            }
+            .setNegativeButton(string.dialog_cancel_string, null)
+            .show()
     }
 }
