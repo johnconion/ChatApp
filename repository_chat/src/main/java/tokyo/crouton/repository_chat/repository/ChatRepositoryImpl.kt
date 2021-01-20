@@ -14,7 +14,7 @@ class ChatRepositoryImpl @Inject constructor(
         realm.executeTransaction {
             it.insert(
                 RealmChat().apply {
-                    this.text = message
+                    this.message = message
                     this.isMe = isMe
                 }
             )
@@ -27,7 +27,7 @@ class ChatRepositoryImpl @Inject constructor(
                 .firstOrNull { it.id == chatId.rawValue }
                 ?: throw IllegalArgumentException("chatId = ${chatId.rawValue} is not found")
         realm.executeTransaction {
-            value.deleteFromRealm()
+            value.isRemoved = true
         }
     }
 

@@ -11,7 +11,8 @@ open class RealmChat(
     var id: Int = createId(),
     var sentAt: Date = Date(),
     var isMe: Boolean = true,
-    var text: String = ""
+    var message: String = "",
+    var isRemoved: Boolean = false
 ) : RealmObject() {
     companion object {
         fun createId(): Int {

@@ -29,5 +29,10 @@ class ChatListItemsStoreImpl @Inject constructor() : ChatListItemsStore {
 
     private fun List<RealmChat>.toItems(): List<ChatListItem> =
         this.sortedBy { it.sentAt }
-            .map { ChatListItem.MessagePost(ChatId(it.id), it.sentAt, it.text, it.isMe) }
+            .map {
+                if (it.isRemoved)
+                    ChatListItem.RemovedPost
+                else
+                    ChatListItem.MessagePost(ChatId(it.id), it.sentAt, it.message, it.isMe)
+            }
 }

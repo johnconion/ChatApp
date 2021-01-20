@@ -3,4 +3,5 @@
     <string name="dialog_cancel_string">Cancel</string>
     <string name="remove_post_dialog_message">この投稿を消去しますか？</string>
     <string name="remove_post_dialog_title">確認</string>
+    <string name="removed_post_string">取り消し</string>
 </resources>
