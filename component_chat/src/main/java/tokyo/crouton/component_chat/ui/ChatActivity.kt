@@ -21,7 +21,7 @@ import tokyo.crouton.component_chat.R.string
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
 import tokyo.crouton.component_chat.usecase.RemovePostUseCase
 import tokyo.crouton.component_chat.usecase.ResetAllChatUseCase
-import tokyo.crouton.domain.chat.ChatId
+import tokyo.crouton.domain.chat.PostId
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
 
@@ -86,12 +86,12 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
         fun createIntent(context: Context) = Intent(context, ChatActivity::class.java)
     }
 
-    override fun removePost(chatId: ChatId) {
+    override fun removePost(postId: PostId) {
         AlertDialog.Builder(this)
             .setTitle(string.remove_post_dialog_title)
             .setMessage(string.remove_post_dialog_message)
             .setPositiveButton(string.dialog_ok_button) { _, _ ->
-                removePostUseCase.execute(chatId)
+                removePostUseCase.execute(postId)
             }
             .setNegativeButton(string.dialog_cancel_string, null)
             .show()

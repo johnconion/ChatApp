@@ -4,7 +4,7 @@ import java.util.Date
 
 sealed class ChatListItem {
     data class MessagePost(
-        val chatId: ChatId,
+        val postId: PostId,
         val postedAt: Date,
         val message: String,
         val isMe: Boolean

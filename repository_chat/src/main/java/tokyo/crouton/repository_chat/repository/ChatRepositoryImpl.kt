@@ -1,8 +1,8 @@
 package tokyo.crouton.repository_chat.repository
 
 import io.realm.Realm
-import tokyo.crouton.datasource_realm.RealmChat
-import tokyo.crouton.domain.chat.ChatId
+import tokyo.crouton.datasource_realm.RealmPost
+import tokyo.crouton.domain.chat.PostId
 import tokyo.crouton.domain.repository.ChatRepository
 import java.util.Date
 import javax.inject.Inject
@@ -13,19 +13,19 @@ class ChatRepositoryImpl @Inject constructor(
     override fun addPost(message: String, date: Date, isMe: Boolean) =
         realm.executeTransaction {
             it.insert(
-                RealmChat().apply {
+                RealmPost().apply {
                     this.message = message
                     this.isMe = isMe
                 }
             )
         }
 
-    override fun removePost(chatId: ChatId) {
+    override fun removePost(postId: PostId) {
         val value =
-            realm.where(RealmChat::class.java)
+            realm.where(RealmPost::class.java)
                 .findAll()
-                .firstOrNull { it.id == chatId.rawValue }
-                ?: throw IllegalArgumentException("chatId = ${chatId.rawValue} is not found")
+                .firstOrNull { it.id == postId.rawValue }
+                ?: throw IllegalArgumentException("postId = ${postId.rawValue} is not found")
         realm.executeTransaction {
             value.isRemoved = true
         }
@@ -33,7 +33,7 @@ class ChatRepositoryImpl @Inject constructor(
 
     override fun removeAll() {
         val values =
-            realm.where(RealmChat::class.java)
+            realm.where(RealmPost::class.java)
                 .findAll()
         realm.executeTransaction {
             values.deleteAllFromRealm()

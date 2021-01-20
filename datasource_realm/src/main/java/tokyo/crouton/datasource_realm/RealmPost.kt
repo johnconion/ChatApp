@@ -6,7 +6,7 @@ import io.realm.annotations.PrimaryKey
 import io.realm.kotlin.where
 import java.util.Date
 
-open class RealmChat(
+open class RealmPost(
     @PrimaryKey
     var id: Int = createId(),
     var sentAt: Date = Date(),
@@ -17,7 +17,7 @@ open class RealmChat(
     companion object {
         fun createId(): Int {
             val realm = Realm.getDefaultInstance()
-            val size = realm.where<RealmChat>().findAll().size
+            val size = realm.where<RealmPost>().findAll().size
             return if (size == 0) 0 else size + 1
         }
     }
