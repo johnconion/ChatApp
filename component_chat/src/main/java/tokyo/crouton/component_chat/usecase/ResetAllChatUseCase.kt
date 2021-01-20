@@ -6,7 +6,7 @@ import tokyo.crouton.base.usecase.UseCaseDispatcher
 import tokyo.crouton.domain.repository.ChatRepository
 import javax.inject.Inject
 
-class RemoveAllPostsUseCase @Inject constructor(
+class ResetAllChatUseCase @Inject constructor(
     override val useCaseDispatcher: UseCaseDispatcher,
     private val chatRepository: ChatRepository
 ) : UseCase0 {

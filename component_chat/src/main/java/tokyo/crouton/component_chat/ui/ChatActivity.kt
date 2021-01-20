@@ -19,8 +19,8 @@ import tokyo.crouton.base.usecase.filterIsFailure
 import tokyo.crouton.component_chat.R
 import tokyo.crouton.component_chat.R.string
 import tokyo.crouton.component_chat.usecase.PostMyTextUseCase
-import tokyo.crouton.component_chat.usecase.RemoveAllPostsUseCase
 import tokyo.crouton.component_chat.usecase.RemovePostUseCase
+import tokyo.crouton.component_chat.usecase.ResetAllChatUseCase
 import tokyo.crouton.domain.chat.ChatId
 import tokyo.crouton.domain.store.ChatListItemsStore
 import javax.inject.Inject
@@ -40,7 +40,7 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
     lateinit var postMyTextUseCase: PostMyTextUseCase
 
     @Inject
-    lateinit var removeAllPostsUseCase: RemoveAllPostsUseCase
+    lateinit var resetAllChatUseCase: ResetAllChatUseCase
 
     @Inject
     lateinit var removePostUseCase: RemovePostUseCase
@@ -62,7 +62,7 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
         }
 
         postButton.setOnLongClickListener {
-            removeAllPostsUseCase.execute()
+            resetAllChatUseCase.execute()
             true
         }
 

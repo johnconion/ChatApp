@@ -4,6 +4,7 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="light_gray">#888888</color>
+    <color name="clear_light_gray">#88888888</color>
     <color name="chat_list_background">#CCCCCC</color>
     <color name="my_post_background">#51EBFF</color>
 </resources>
