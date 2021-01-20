@@ -2,6 +2,7 @@
     <string name="dialog_ok_button">OK</string>
     <string name="dialog_cancel_string">Cancel</string>
     <string name="remove_post_dialog_message">この投稿を消去しますか？</string>
-    <string name="remove_post_dialog_title">確認</string>
+    <string name="reset_all_chat_dialog_message">チャットをリセットしますか？</string>
+    <string name="common_confirmation_dialog_title">確認</string>
     <string name="removed_post_string">取り消し</string>
 </resources>

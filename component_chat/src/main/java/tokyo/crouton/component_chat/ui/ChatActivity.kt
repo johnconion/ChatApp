@@ -62,7 +62,7 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
         }
 
         postButton.setOnLongClickListener {
-            resetAllChatUseCase.execute()
+            showResetChatListDialog()
             true
         }
 
@@ -88,10 +88,21 @@ class ChatActivity : AppCompatActivity(), AutoDisposable by AutoDisposableDelega
 
     override fun removePost(postId: PostId) {
         AlertDialog.Builder(this)
-            .setTitle(string.remove_post_dialog_title)
+            .setTitle(string.common_confirmation_dialog_title)
             .setMessage(string.remove_post_dialog_message)
             .setPositiveButton(string.dialog_ok_button) { _, _ ->
                 removePostUseCase.execute(postId)
+            }
+            .setNegativeButton(string.dialog_cancel_string, null)
+            .show()
+    }
+
+    private fun showResetChatListDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(string.common_confirmation_dialog_title)
+            .setMessage(string.reset_all_chat_dialog_message)
+            .setPositiveButton(string.dialog_ok_button) { _, _ ->
+                resetAllChatUseCase.execute()
             }
             .setNegativeButton(string.dialog_cancel_string, null)
             .show()
