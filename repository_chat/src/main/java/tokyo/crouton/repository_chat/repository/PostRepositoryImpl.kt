@@ -3,13 +3,13 @@ package tokyo.crouton.repository_chat.repository
 import io.realm.Realm
 import tokyo.crouton.datasource_realm.RealmPost
 import tokyo.crouton.domain.chat.PostId
-import tokyo.crouton.domain.repository.ChatRepository
+import tokyo.crouton.domain.repository.PostRepository
 import java.util.Date
 import javax.inject.Inject
 
-class ChatRepositoryImpl @Inject constructor(
+class PostRepositoryImpl @Inject constructor(
     private val realm: Realm
-) : ChatRepository {
+) : PostRepository {
     override fun addPost(message: String, date: Date, isMe: Boolean) =
         realm.executeTransaction {
             it.insert(

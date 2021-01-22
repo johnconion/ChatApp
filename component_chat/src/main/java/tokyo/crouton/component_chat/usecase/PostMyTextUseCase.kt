@@ -6,7 +6,7 @@ import io.reactivex.schedulers.Schedulers
 import tokyo.crouton.base.toDateFromISOString
 import tokyo.crouton.base.usecase.UseCase1
 import tokyo.crouton.base.usecase.UseCaseDispatcher
-import tokyo.crouton.domain.repository.ChatRepository
+import tokyo.crouton.domain.repository.PostRepository
 import tokyo.crouton.network.APIClient
 import tokyo.crouton.network.api.ChatApi
 import java.util.Date
@@ -15,12 +15,12 @@ import javax.inject.Inject
 class PostMyTextUseCase @Inject constructor(
     override val useCaseDispatcher: UseCaseDispatcher,
     private val APIClient: APIClient,
-    private val chatRepository: ChatRepository
+    private val postRepository: PostRepository
 ) : UseCase1<String> {
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun build(text: String): Single<Unit> =
         Single.fromCallable {
-            chatRepository.addPost(text, Date(), true)
+            postRepository.addPost(text, Date(), true)
         }
             .observeOn(Schedulers.io())
             .flatMap {
@@ -28,6 +28,6 @@ class PostMyTextUseCase @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess {
-                chatRepository.addPost(it.message, it.date.toDateFromISOString(), false)
+                postRepository.addPost(it.message, it.date.toDateFromISOString(), false)
             }.map { Unit }
 }
