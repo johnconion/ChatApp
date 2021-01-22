@@ -3,7 +3,6 @@ package tokyo.crouton.component_chat.usecase
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import tokyo.crouton.base.toDateFromISOString
 import tokyo.crouton.base.usecase.UseCase1
 import tokyo.crouton.base.usecase.UseCaseDispatcher
 import tokyo.crouton.domain.repository.PostRepository
@@ -28,6 +27,8 @@ class PostMyTextUseCase @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess {
-                postRepository.addPost(it.message, it.date.toDateFromISOString(), false)
+                // it.date.toDateFromISOString() としたらなぜか返ってきた Date がAPIを叩いた時刻より前になってしまった
+                // 端末の時刻とサーバーの時刻にズレがあるっぽいので諦めて Date() に置き換えた
+                postRepository.addPost(it.message, Date(), false)
             }.map { Unit }
 }
