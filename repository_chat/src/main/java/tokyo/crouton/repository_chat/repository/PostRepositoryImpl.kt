@@ -16,6 +16,7 @@ class PostRepositoryImpl @Inject constructor(
                 RealmPost().apply {
                     this.message = message
                     this.isMe = isMe
+                    this.sentAt = date
                 }
             )
         }
